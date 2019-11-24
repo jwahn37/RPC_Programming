@@ -43,5 +43,5 @@ void main(int argc, char *argv[])
 	clnt_destroy(clnt);
 	
 	exit(0);
-	//return 0;
+	return 0;
 }
