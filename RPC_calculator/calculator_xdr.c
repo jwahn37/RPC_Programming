@@ -3,7 +3,7 @@
  * It was generated using rpcgen.
  */
 
-#include "add.h"
+#include "calculator.h"
 
 bool_t
 xdr_intpair (XDR *xdrs, intpair *objp)

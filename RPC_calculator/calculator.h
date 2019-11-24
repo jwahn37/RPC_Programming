@@ -3,8 +3,8 @@
  * It was generated using rpcgen.
  */
 
-#ifndef _ADD_H_RPCGEN
-#define _ADD_H_RPCGEN
+#ifndef _CALCULATOR_H_RPCGEN
+#define _CALCULATOR_H_RPCGEN
 
 #include <rpc/rpc.h>
 
@@ -27,12 +27,30 @@ typedef struct intpair intpair;
 #define ADD 1
 extern  int * add_1(intpair *, CLIENT *);
 extern  int * add_1_svc(intpair *, struct svc_req *);
+#define SUB 1
+extern  int * sub_1(intpair *, CLIENT *);
+extern  int * sub_1_svc(intpair *, struct svc_req *);
+#define MULT 1
+extern  int * mult_1(intpair *, CLIENT *);
+extern  int * mult_1_svc(intpair *, struct svc_req *);
+#define DIV 1
+extern  int * div_1(intpair *, CLIENT *);
+extern  int * div_1_svc(intpair *, struct svc_req *);
 extern int add_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
 #define ADD 1
 extern  int * add_1();
 extern  int * add_1_svc();
+#define SUB 1
+extern  int * sub_1();
+extern  int * sub_1_svc();
+#define MULT 1
+extern  int * mult_1();
+extern  int * mult_1_svc();
+#define DIV 1
+extern  int * div_1();
+extern  int * div_1_svc();
 extern int add_prog_1_freeresult ();
 #endif /* K&R C */
 
@@ -50,4 +68,4 @@ extern bool_t xdr_intpair ();
 }
 #endif
 
-#endif /* !_ADD_H_RPCGEN */
+#endif /* !_CALCULATOR_H_RPCGEN */

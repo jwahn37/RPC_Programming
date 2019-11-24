@@ -3,7 +3,7 @@
  * It was generated using rpcgen.
  */
 
-#include "add.h"
+#include "calculator.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <rpc/pmap_clnt.h>
@@ -21,6 +21,9 @@ add_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
 		intpair add_1_arg;
+		intpair sub_1_arg;
+		intpair mult_1_arg;
+		intpair div_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -35,6 +38,24 @@ add_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		_xdr_argument = (xdrproc_t) xdr_intpair;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) add_1_svc;
+		break;
+
+	case SUB:
+		_xdr_argument = (xdrproc_t) xdr_intpair;
+		_xdr_result = (xdrproc_t) xdr_int;
+		local = (char *(*)(char *, struct svc_req *)) sub_1_svc;
+		break;
+
+	case MULT:
+		_xdr_argument = (xdrproc_t) xdr_intpair;
+		_xdr_result = (xdrproc_t) xdr_int;
+		local = (char *(*)(char *, struct svc_req *)) mult_1_svc;
+		break;
+
+	case DIV:
+		_xdr_argument = (xdrproc_t) xdr_intpair;
+		_xdr_result = (xdrproc_t) xdr_int;
+		local = (char *(*)(char *, struct svc_req *)) div_1_svc;
 		break;
 
 	default:
