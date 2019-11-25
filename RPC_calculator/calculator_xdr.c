@@ -6,13 +6,13 @@
 #include "calculator.h"
 
 bool_t
-xdr_intpair (XDR *xdrs, intpair *objp)
+xdr_CMD_INPUT (XDR *xdrs, CMD_INPUT *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_int (xdrs, &objp->a))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->b))
+	int i;
+	 if (!xdr_vector (xdrs, (char *)objp->cmd_input, 128,
+		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	return TRUE;
 }

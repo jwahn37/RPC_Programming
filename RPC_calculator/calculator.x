@@ -1,15 +1,12 @@
-struct intpair {
-        int a;
-        int b;
+#define LEN_CMD 128
+struct CMD_INPUT {
+        char cmd_input[LEN_CMD];
 };
 
-program ADD_PROG {
-        version ADD_VERS {
-                int ADD(intpair) = 1;
-                int SUB(intpair) = 2;
-                int MULT(intpair) = 3;
-                int DIV(intpair) = 4;
-
+program CALC {
+        version CALC_VERS {
+                int ADD(CMD_INPUT) = 1;
         } = 1;
+
         
 } = 120180389;

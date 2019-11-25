@@ -5,66 +5,32 @@
  */
 
 #include "calculator.h"
-#include <string.h>
 
-#define LEN_CMD (1024)
 
-int add_prog_1(char *host, int a, int b, char op);
-int calculation(char *host, char* cmd_input);
-char isOperation(char input);
-char isNumber(char input);
-
-int
-add_prog_1(char *host, int a, int b, char op)
+void
+calc_1(char *host)
 {
 	CLIENT *clnt;
-	int  *result;
-	intpair  arg;
-	arg.a = a;
-	arg.b = b;
+	int  *result_1;
+	CMD_INPUT  add_1_arg;
+
+	scanf("%s", add_1_arg.cmd_input);
 #ifndef	DEBUG
-	clnt = clnt_create (host, ADD_PROG, ADD_VERS, "udp");
+	clnt = clnt_create (host, CALC, CALC_VERS, "udp");
 	if (clnt == NULL) {
 		clnt_pcreateerror (host);
 		exit (1);
 	}
 #endif	/* DEBUG */
 
-	switch(op)
-	{
-		case '+':	
-			result = add_1(&arg, clnt);
-			if (result == (int *) NULL) {
-				clnt_perror (clnt, "call failed");
-			}
-			break;
-
-		case '-':	
-			result = sub_1(&arg, clnt);
-			if (result == (int *) NULL) {
-				clnt_perror (clnt, "call failed");
-			}
-			break;
-
-		case '*':	
-			result = mult_1(&arg, clnt);
-			if (result == (int *) NULL) {
-				clnt_perror (clnt, "call failed");
-			}
-			break;
-
-		case '/':	
-			result = div_1(&arg, clnt);
-			if (result == (int *) NULL) {
-				clnt_perror (clnt, "call failed");
-			}
-			break;
+	result_1 = add_1(&add_1_arg, clnt);
+	printf("The answer is %d\n",*result_1);
+	if (result_1 == (int *) NULL) {
+		clnt_perror (clnt, "call failed");
 	}
-
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */
-	return *result;
 }
 
 
@@ -72,77 +38,12 @@ int
 main (int argc, char *argv[])
 {
 	char *host;
-	int result;
-	char cmd_input[LEN_CMD];
 
 	if (argc < 2) {
 		printf ("usage: %s server_host\n", argv[0]);
 		exit (1);
 	}
 	host = argv[1];
-
-	scanf("%s", cmd_input);
-	result = calculation(host, cmd_input);
-	if(result==-1)	{
-		printf("Input format occurs!\n");
-		exit(0);
-	}
-	printf("The answer is %d\n", result);
-	
+	calc_1 (host);
 exit (0);
-}
-
-int calculation(char *host, char* cmd_input)
-{
-	/*
-	int a,b;
-	char flag_afop;
-	char op;
-	//tranlsate commands	
-	int i,i_bf;
-	
-	
-	for(i=0, i_bf=0,a=0, b=0, flag_afop=0; i<strlen(cmd_input); i++)
-	{
-		if((!flag_afop) && (isOperation(cmd_input[i])))
-		{
-			op = cmd_input[i];
-			flag_afop=1;
-		}
-		else if(isNumber(cmd_input[i]))
-		{
-			if(flag_afop==0)
-			{
-				a *= 10;
-				a += (cmd_input[i]-'0');
-			}
-			else
-			{
-				b *= 10;
-				b += (cmd_input[i]-'0');
-			}
-			
-		}
-		else
-		{
-		//	printf("Input Error!\n");
-			return -1;
-		}
-	}
-	//printf("input is %d %c %d\n", a,op,b);
-	return add_prog_1 (host, a, b, op);
-	*/
-}
-
-char isOperation(char input)
-{
-	if(input=='+' || input=='-' || input=='*' || input=='/')
-		return 1;
-	return 0;
-}
-char isNumber(char input)
-{
-	if(input-'0' >= 0 && input-'0' <= 9)
-		return 1;
-	else 0;
 }

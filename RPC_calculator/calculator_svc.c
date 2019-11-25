@@ -17,13 +17,10 @@
 #endif
 
 static void
-add_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
+calc_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		intpair add_1_arg;
-		intpair sub_1_arg;
-		intpair mult_1_arg;
-		intpair div_1_arg;
+		CMD_INPUT add_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -35,27 +32,9 @@ add_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		return;
 
 	case ADD:
-		_xdr_argument = (xdrproc_t) xdr_intpair;
+		_xdr_argument = (xdrproc_t) xdr_CMD_INPUT;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) add_1_svc;
-		break;
-
-	case SUB:
-		_xdr_argument = (xdrproc_t) xdr_intpair;
-		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) sub_1_svc;
-		break;
-
-	case MULT:
-		_xdr_argument = (xdrproc_t) xdr_intpair;
-		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) mult_1_svc;
-		break;
-
-	case DIV:
-		_xdr_argument = (xdrproc_t) xdr_intpair;
-		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) div_1_svc;
 		break;
 
 	default:
@@ -83,15 +62,15 @@ main (int argc, char **argv)
 {
 	register SVCXPRT *transp;
 
-	pmap_unset (ADD_PROG, ADD_VERS);
+	pmap_unset (CALC, CALC_VERS);
 
 	transp = svcudp_create(RPC_ANYSOCK);
 	if (transp == NULL) {
 		fprintf (stderr, "%s", "cannot create udp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, ADD_PROG, ADD_VERS, add_prog_1, IPPROTO_UDP)) {
-		fprintf (stderr, "%s", "unable to register (ADD_PROG, ADD_VERS, udp).");
+	if (!svc_register(transp, CALC, CALC_VERS, calc_1, IPPROTO_UDP)) {
+		fprintf (stderr, "%s", "unable to register (CALC, CALC_VERS, udp).");
 		exit(1);
 	}
 
@@ -100,8 +79,8 @@ main (int argc, char **argv)
 		fprintf (stderr, "%s", "cannot create tcp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, ADD_PROG, ADD_VERS, add_prog_1, IPPROTO_TCP)) {
-		fprintf (stderr, "%s", "unable to register (ADD_PROG, ADD_VERS, tcp).");
+	if (!svc_register(transp, CALC, CALC_VERS, calc_1, IPPROTO_TCP)) {
+		fprintf (stderr, "%s", "unable to register (CALC, CALC_VERS, tcp).");
 		exit(1);
 	}
 

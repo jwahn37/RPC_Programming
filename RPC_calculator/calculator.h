@@ -14,53 +14,34 @@ extern "C" {
 #endif
 
 
-struct intpair {
-	int a;
-	int b;
+struct CMD_INPUT {
+	char cmd_input[128];
 };
-typedef struct intpair intpair;
+typedef struct CMD_INPUT CMD_INPUT;
 
-#define ADD_PROG 120180389
-#define ADD_VERS 1
+#define CALC 120180389
+#define CALC_VERS 1
 
 #if defined(__STDC__) || defined(__cplusplus)
 #define ADD 1
-extern  int * add_1(intpair *, CLIENT *);
-extern  int * add_1_svc(intpair *, struct svc_req *);
-#define SUB 2
-extern  int * sub_1(intpair *, CLIENT *);
-extern  int * sub_1_svc(intpair *, struct svc_req *);
-#define MULT 3
-extern  int * mult_1(intpair *, CLIENT *);
-extern  int * mult_1_svc(intpair *, struct svc_req *);
-#define DIV 4
-extern  int * div_1(intpair *, CLIENT *);
-extern  int * div_1_svc(intpair *, struct svc_req *);
-extern int add_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
+extern  int * add_1(CMD_INPUT *, CLIENT *);
+extern  int * add_1_svc(CMD_INPUT *, struct svc_req *);
+extern int calc_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
 #define ADD 1
 extern  int * add_1();
 extern  int * add_1_svc();
-#define SUB 2
-extern  int * sub_1();
-extern  int * sub_1_svc();
-#define MULT 3
-extern  int * mult_1();
-extern  int * mult_1_svc();
-#define DIV 4
-extern  int * div_1();
-extern  int * div_1_svc();
-extern int add_prog_1_freeresult ();
+extern int calc_1_freeresult ();
 #endif /* K&R C */
 
 /* the xdr functions */
 
 #if defined(__STDC__) || defined(__cplusplus)
-extern  bool_t xdr_intpair (XDR *, intpair*);
+extern  bool_t xdr_CMD_INPUT (XDR *, CMD_INPUT*);
 
 #else /* K&R C */
-extern bool_t xdr_intpair ();
+extern bool_t xdr_CMD_INPUT ();
 
 #endif /* K&R C */
 
