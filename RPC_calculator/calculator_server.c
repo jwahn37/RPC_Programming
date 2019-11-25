@@ -140,14 +140,16 @@ int calc_postfix()
         }
         else //operation
         {
-            n1 = *(int *)stack_pop(FLAG_PFSTACK);
+			//순서 뒤집기.
             n2 = *(int *)stack_pop(FLAG_PFSTACK);
-			printf("%f %f\n", n1, n2);
+            n1 = *(int *)stack_pop(FLAG_PFSTACK);
             res = calculation(n1, n2, postfix[i].op);
+			//printf("%d %d %d\n", n1, n2,res);
+
             stack_push(&res, FLAG_PFSTACK);
         }
     }
-    printf("res : %lf\n", *(int*)stack_top(FLAG_PFSTACK));
+  //  printf("res : %lf\n", *(int*)stack_top(FLAG_PFSTACK));
 	return *(int*)stack_top(FLAG_PFSTACK);
 }
 int conv_postfix(char cmd_input[LEN_CMD])
@@ -161,12 +163,13 @@ int conv_postfix(char cmd_input[LEN_CMD])
     int p_i = 0;
     CALC_ELE ce;
 
-    printf("%s\n", cmd_input);
+   // printf("%s\n", cmd_input);
     stack_init(FLAG_OPSTACK);
     for (i = 0, no = 0,nega=0; i <= strlen(cmd_input); i++)
     {
 		if(i==0 && cmd_input[i]=='-')
 		{
+			printf("nega\n");
 			nega=1;
 		}
         //마지막에 한번 더 취해줘야 하므로
@@ -221,15 +224,17 @@ int conv_postfix(char cmd_input[LEN_CMD])
     }
     pf_size = p_i;
     
+	/*
     //postfix 확인하기
     for (i = 0; i < p_i; i++)
     {
         if (postfix[i].op == 0)
-            printf("%lf ", postfix[i].number);
+            printf("%d ", postfix[i].number);
         else
             printf("%c ", postfix[i].op);
     }
     printf("\n");
+	*/
 
     return calc_postfix();
 }
@@ -242,7 +247,7 @@ calculation_1_svc(CMD_INPUT *argp, struct svc_req *rqstp)
 	/*
 	 * insert server code here
 	 */
-	printf("%s\n", argp->cmd_input);
+	//printf("%s\n", argp->cmd_input);
 
 	result = conv_postfix(argp->cmd_input);
 	return &result;
