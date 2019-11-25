@@ -27,13 +27,13 @@ typedef struct intpair intpair;
 #define ADD 1
 extern  int * add_1(intpair *, CLIENT *);
 extern  int * add_1_svc(intpair *, struct svc_req *);
-#define SUB 1
+#define SUB 2
 extern  int * sub_1(intpair *, CLIENT *);
 extern  int * sub_1_svc(intpair *, struct svc_req *);
-#define MULT 1
+#define MULT 3
 extern  int * mult_1(intpair *, CLIENT *);
 extern  int * mult_1_svc(intpair *, struct svc_req *);
-#define DIV 1
+#define DIV 4
 extern  int * div_1(intpair *, CLIENT *);
 extern  int * div_1_svc(intpair *, struct svc_req *);
 extern int add_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
@@ -42,13 +42,13 @@ extern int add_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 #define ADD 1
 extern  int * add_1();
 extern  int * add_1_svc();
-#define SUB 1
+#define SUB 2
 extern  int * sub_1();
 extern  int * sub_1_svc();
-#define MULT 1
+#define MULT 3
 extern  int * mult_1();
 extern  int * mult_1_svc();
-#define DIV 1
+#define DIV 4
 extern  int * div_1();
 extern  int * div_1_svc();
 extern int add_prog_1_freeresult ();

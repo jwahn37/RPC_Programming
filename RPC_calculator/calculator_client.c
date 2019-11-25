@@ -9,18 +9,19 @@
 
 #define LEN_CMD (1024)
 
-void add_prog_1(char *host, int a, int b, char op);
-void calculation(char *host, char* cmd_input);
+int add_prog_1(char *host, int a, int b, char op);
+int calculation(char *host, char* cmd_input);
 char isOperation(char input);
 char isNumber(char input);
 
-void
+int
 add_prog_1(char *host, int a, int b, char op)
 {
 	CLIENT *clnt;
 	int  *result;
 	intpair  arg;
-	
+	arg.a = a;
+	arg.b = b;
 #ifndef	DEBUG
 	clnt = clnt_create (host, ADD_PROG, ADD_VERS, "udp");
 	if (clnt == NULL) {
@@ -60,10 +61,10 @@ add_prog_1(char *host, int a, int b, char op)
 			break;
 	}
 
-	printf("The answer is %d\n", *result);
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */
+	return *result;
 }
 
 
@@ -71,8 +72,9 @@ int
 main (int argc, char *argv[])
 {
 	char *host;
-	
+	int result;
 	char cmd_input[LEN_CMD];
+
 	if (argc < 2) {
 		printf ("usage: %s server_host\n", argv[0]);
 		exit (1);
@@ -80,22 +82,27 @@ main (int argc, char *argv[])
 	host = argv[1];
 
 	scanf("%s", cmd_input);
-	calculation(host, cmd_input);
-	//add_prog_1 (host, A, B, op);
+	result = calculation(host, cmd_input);
+	if(result==-1)	{
+		printf("Input format occurs!\n");
+		exit(0);
+	}
+	printf("The answer is %d\n", result);
 	
 exit (0);
 }
 
-void calculation(char *host, char* cmd_input)
+int calculation(char *host, char* cmd_input)
 {
+	/*
 	int a,b;
 	char flag_afop;
-	//int input[2]={0,0};
 	char op;
 	//tranlsate commands	
 	int i,i_bf;
 	
-	for(i=0, i_bf=0,a=0, b=0, flag_afop=0; strlen(cmd_input); i++)
+	
+	for(i=0, i_bf=0,a=0, b=0, flag_afop=0; i<strlen(cmd_input); i++)
 	{
 		if((!flag_afop) && (isOperation(cmd_input[i])))
 		{
@@ -118,13 +125,13 @@ void calculation(char *host, char* cmd_input)
 		}
 		else
 		{
-			printf("Input Error!\n");
-			return;
+		//	printf("Input Error!\n");
+			return -1;
 		}
 	}
-	printf("input is %d %c %d\n", a,op,b);
-	add_prog_1 (host, a, b, op);
-
+	//printf("input is %d %c %d\n", a,op,b);
+	return add_prog_1 (host, a, b, op);
+	*/
 }
 
 char isOperation(char input)
