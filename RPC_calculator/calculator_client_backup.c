@@ -23,7 +23,7 @@ calc_1(char *host)
 	}
 #endif	/* DEBUG */
 
-	result_1 = calculation_1(&add_1_arg, clnt);
+	result_1 = add_1(&add_1_arg, clnt);
 	printf("The answer is %d\n",*result_1);
 	if (result_1 == (int *) NULL) {
 		clnt_perror (clnt, "call failed");

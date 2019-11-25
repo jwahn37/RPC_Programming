@@ -20,7 +20,7 @@ static void
 calc_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		CMD_INPUT add_1_arg;
+		CMD_INPUT calculation_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -31,10 +31,10 @@ calc_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		(void) svc_sendreply (transp, (xdrproc_t) xdr_void, (char *)NULL);
 		return;
 
-	case ADD:
+	case CALCULATION:
 		_xdr_argument = (xdrproc_t) xdr_CMD_INPUT;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) add_1_svc;
+		local = (char *(*)(char *, struct svc_req *)) calculation_1_svc;
 		break;
 
 	default:

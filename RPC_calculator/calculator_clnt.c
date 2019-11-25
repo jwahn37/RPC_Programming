@@ -10,12 +10,12 @@
 static struct timeval TIMEOUT = { 25, 0 };
 
 int *
-add_1(CMD_INPUT *argp, CLIENT *clnt)
+calculation_1(CMD_INPUT *argp, CLIENT *clnt)
 {
 	static int clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
-	if (clnt_call (clnt, ADD,
+	if (clnt_call (clnt, CALCULATION,
 		(xdrproc_t) xdr_CMD_INPUT, (caddr_t) argp,
 		(xdrproc_t) xdr_int, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {

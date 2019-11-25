@@ -5,7 +5,7 @@ struct CMD_INPUT {
 
 program CALC {
         version CALC_VERS {
-                int ADD(CMD_INPUT) = 1;
+                int CALCULATION(CMD_INPUT) = 1;
         } = 1;
 
         
